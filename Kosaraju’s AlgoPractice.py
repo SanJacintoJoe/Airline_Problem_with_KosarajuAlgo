@@ -74,22 +74,6 @@ def Second_Pass(graph):
     return graph, leaders
 
 
-edgeList = [("LAX", "SOF"), ("LAX", "SEA"), ("SEA", "IAH"), ("ORD", "LGA"), ("ORD", "DEN"), ("ORD", "ALT"), ("HW", "SOF"),
-            ("ALT", "ORD"), ("SOF", "LAX"), ("PHX", "DEN"), ("DEN", "IAH"), ("IAH", "SOF"), ("LAX", "HW"), ("HK", "HW"), ("HK", "JP"), ("JP","HW"), ("LAX", "ORD")]
-
-print("\n#####################\n",  "\nAll Possible Routes: ")
-for i in edgeList:
-    print(i)
-print("\n#####################\n")
-graph = graph_build(edgeList, True)
-graph2 = First_Pass(graph)
-graph3 = edge_array_w_finishing_times(edgeList)
-graph_with_f_times = graph_build(graph3, False)
-graph, leaders = Second_Pass(graph_with_f_times)
-Departure = input("Enter Airport You Are Departing From: ")
-Destination = input("Enter Your Destination Airport: ")
-
-
 def get_out(position, destination):
     visited = []
     stack = []
@@ -118,19 +102,20 @@ def get_out(position, destination):
                     sys.exit(0)
     print("Not found")
     print(path)
+    
 
-def find_route(position, destination1):
-    list_of_components = graph[position]
-    beginning_Main_Node = list_of_components[0]
-    ending_Main_Node = []
-    for key, value in graph.items():
-        if destination1 in value[2]:
-            comp = [key, value[0]]
-            ending_Main_Node.append(comp)
-    for x in ending_Main_Node:
-        if x[1] == beginning_Main_Node:
-            pass
-    get_out(position, destination1)
+ edgeList = [("LAX", "SOF"), ("LAX", "SEA"), ("SEA", "IAH"), ("ORD", "LGA"), ("ORD", "DEN"), ("ORD", "ALT"), ("HW", "SOF"),
+            ("ALT", "ORD"), ("SOF", "LAX"), ("PHX", "DEN"), ("DEN", "IAH"), ("IAH", "SOF"), ("LAX", "HW"), ("HK", "HW"), ("HK", "JP"), ("JP","HW"), ("LAX", "ORD")]
 
-
-find_route(Departure, Destination)
+print("\n#####################\n",  "\nAll Possible Routes: ")
+for i in edgeList:
+    print(i)
+print("\n#####################\n")
+graph = graph_build(edgeList, True)
+graph2 = First_Pass(graph)
+graph3 = edge_array_w_finishing_times(edgeList)
+graph_with_f_times = graph_build(graph3, False)
+graph, leaders = Second_Pass(graph_with_f_times)
+Departure = input("Enter Airport You Are Departing From: ")
+Destination = input("Enter Your Destination Airport: ")
+get_out(Departure, Destination)
